@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>KnowledgeSharing_09_10_23.IEnumerableVsListRef-20231009-125552</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.13.9+228a464e8be6c580ad9408e98f18813f6407fb5a, Windows 10 (10.0.19045.3448/22H2/2022Update)
+12th Gen Intel Core i7-1255U, 1 CPU, 12 logical and 10 physical cores
+.NET SDK 7.0.401
+  [Host]     : .NET 7.0.11 (7.0.1123.42427), X64 RyuJIT AVX2
+  DefaultJob : .NET 7.0.11 (7.0.1123.42427), X64 RyuJIT AVX2
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method                         </th><th>NLoops</th><th>Mean  </th><th>Error</th><th>StdDev</th><th>Median</th><th>Ratio</th><th>RatioSD</th><th>Gen0</th><th>Gen1</th><th>Allocated</th><th>Alloc Ratio</th>
+</tr>
+</thead><tbody><tr><td>GetInts_Bench</td><td>1000</td><td>295.2 ns</td><td>1.52 ns</td><td>1.27 ns</td><td>295.7 ns</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>NA</td>
+</tr><tr><td>GetInts_IE_Bench</td><td>1000</td><td>310.6 ns</td><td>2.91 ns</td><td>2.72 ns</td><td>311.2 ns</td><td>1.05</td><td>0.01</td><td>-</td><td>-</td><td>-</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_Yield_Bench</td><td>1000</td><td>9,724.4 ns</td><td>193.20 ns</td><td>283.19 ns</td><td>9,688.5 ns</td><td>33.08</td><td>0.85</td><td>-</td><td>-</td><td>88 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_Bench</td><td>1000</td><td>6,044.6 ns</td><td>51.12 ns</td><td>45.32 ns</td><td>6,054.8 ns</td><td>20.49</td><td>0.20</td><td>-</td><td>-</td><td>40 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_ToList_Bench</td><td>1000</td><td>6,865.3 ns</td><td>136.92 ns</td><td>363.08 ns</td><td>6,755.3 ns</td><td>24.00</td><td>0.95</td><td>0.6485</td><td>0.0076</td><td>4096 B</td><td>NA</td>
+</tr><tr><td>GetInts_List_ToList_Bench</td><td>1000</td><td>674.5 ns</td><td>12.84 ns</td><td>10.02 ns</td><td>672.3 ns</td><td>2.29</td><td>0.03</td><td>0.6456</td><td>0.0095</td><td>4056 B</td><td>NA</td>
+</tr><tr><td>GetInts_List_ToListToListToList_Bench</td><td>1000</td><td>1,094.1 ns</td><td>21.04 ns</td><td>20.66 ns</td><td>1,089.6 ns</td><td>3.72</td><td>0.08</td><td>1.9379</td><td>0.0458</td><td>12168 B</td><td>NA</td>
+</tr><tr><td>GetInts_IE_ToList_Bench</td><td>1000</td><td>682.6 ns</td><td>14.28 ns</td><td>41.44 ns</td><td>663.9 ns</td><td>2.38</td><td>0.07</td><td>0.6456</td><td>0.0095</td><td>4056 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_AlmostSmart_Yield</td><td>1000</td><td>5,434.7 ns</td><td>170.99 ns</td><td>498.78 ns</td><td>5,166.4 ns</td><td>20.27</td><td>1.73</td><td>-</td><td>-</td><td>88 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_Smart_Yield</td><td>1000</td><td>5,149.8 ns</td><td>101.64 ns</td><td>121.00 ns</td><td>5,109.7 ns</td><td>17.55</td><td>0.44</td><td>0.0076</td><td>-</td><td>88 B</td><td>NA</td>
+</tr><tr><td>GetInts_List_List_Yield</td><td>1000</td><td>749.7 ns</td><td>22.04 ns</td><td>63.94 ns</td><td>737.1 ns</td><td>2.44</td><td>0.16</td><td>0.6456</td><td>0.0095</td><td>4056 B</td><td>NA</td>
+</tr><tr><td>GetInts_IE_List_Yield</td><td>1000</td><td>705.4 ns</td><td>27.28 ns</td><td>80.45 ns</td><td>706.9 ns</td><td>2.65</td><td>0.22</td><td>0.6456</td><td>0.0095</td><td>4056 B</td><td>NA</td>
+</tr><tr><td>GetInts_Bench</td><td>10000</td><td>2,918.1 ns</td><td>36.81 ns</td><td>34.43 ns</td><td>2,918.0 ns</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>NA</td>
+</tr><tr><td>GetInts_IE_Bench</td><td>10000</td><td>3,103.2 ns</td><td>61.33 ns</td><td>91.80 ns</td><td>3,076.4 ns</td><td>1.05</td><td>0.03</td><td>-</td><td>-</td><td>-</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_Yield_Bench</td><td>10000</td><td>104,659.6 ns</td><td>2,039.44 ns</td><td>5,582.93 ns</td><td>103,750.9 ns</td><td>36.74</td><td>2.80</td><td>-</td><td>-</td><td>88 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_Bench</td><td>10000</td><td>60,140.3 ns</td><td>1,177.06 ns</td><td>1,355.50 ns</td><td>60,079.4 ns</td><td>20.62</td><td>0.42</td><td>-</td><td>-</td><td>40 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_ToList_Bench</td><td>10000</td><td>65,099.5 ns</td><td>936.58 ns</td><td>1,401.82 ns</td><td>64,580.5 ns</td><td>22.45</td><td>0.60</td><td>6.3477</td><td>0.6104</td><td>40096 B</td><td>NA</td>
+</tr><tr><td>GetInts_List_ToList_Bench</td><td>10000</td><td>6,879.6 ns</td><td>189.99 ns</td><td>545.11 ns</td><td>6,711.2 ns</td><td>2.32</td><td>0.18</td><td>6.3629</td><td>0.7019</td><td>40056 B</td><td>NA</td>
+</tr><tr><td>GetInts_List_ToListToListToList_Bench</td><td>10000</td><td>12,620.8 ns</td><td>411.72 ns</td><td>1,207.51 ns</td><td>12,442.8 ns</td><td>4.85</td><td>0.43</td><td>19.1040</td><td>3.1738</td><td>120168 B</td><td>NA</td>
+</tr><tr><td>GetInts_IE_ToList_Bench</td><td>10000</td><td>6,784.9 ns</td><td>149.10 ns</td><td>415.63 ns</td><td>6,766.7 ns</td><td>2.41</td><td>0.08</td><td>6.3629</td><td>0.7019</td><td>40056 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_AlmostSmart_Yield</td><td>10000</td><td>49,013.4 ns</td><td>891.76 ns</td><td>1,608.03 ns</td><td>48,316.6 ns</td><td>17.32</td><td>0.58</td><td>-</td><td>-</td><td>88 B</td><td>NA</td>
+</tr><tr><td>GetInts_IEnumerable_Smart_Yield</td><td>10000</td><td>51,247.0 ns</td><td>1,021.73 ns</td><td>2,428.24 ns</td><td>50,985.8 ns</td><td>17.05</td><td>0.57</td><td>-</td><td>-</td><td>88 B</td><td>NA</td>
+</tr><tr><td>GetInts_List_List_Yield</td><td>10000</td><td>6,449.9 ns</td><td>124.18 ns</td><td>318.31 ns</td><td>6,337.8 ns</td><td>2.21</td><td>0.11</td><td>6.3629</td><td>0.7019</td><td>40056 B</td><td>NA</td>
+</tr><tr><td>GetInts_IE_List_Yield</td><td>10000</td><td>6,789.4 ns</td><td>168.75 ns</td><td>494.91 ns</td><td>6,718.8 ns</td><td>2.33</td><td>0.19</td><td>6.3629</td><td>0.7019</td><td>40056 B</td><td>NA</td>
+</tr></tbody></table>
+</body>
+</html>

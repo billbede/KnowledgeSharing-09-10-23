@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>KnowledgeSharing_09_10_23.IEnumerableVsListIteration-20231009-124842</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.13.9+228a464e8be6c580ad9408e98f18813f6407fb5a, Windows 10 (10.0.19045.3448/22H2/2022Update)
+12th Gen Intel Core i7-1255U, 1 CPU, 12 logical and 10 physical cores
+.NET SDK 7.0.401
+  [Host]     : .NET 7.0.11 (7.0.1123.42427), X64 RyuJIT AVX2
+  DefaultJob : .NET 7.0.11 (7.0.1123.42427), X64 RyuJIT AVX2
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method                               </th><th>NLoops</th><th>Mean  </th><th>Error</th><th>StdDev</th><th>Median</th><th>Ratio</th><th>RatioSD</th><th>Allocated</th><th>Alloc Ratio</th>
+</tr>
+</thead><tbody><tr><td>DataTable_Iteration</td><td>1000</td><td>330.9 ns</td><td>6.34 ns</td><td>6.23 ns</td><td>332.3 ns</td><td>1.00</td><td>0.00</td><td>-</td><td>NA</td>
+</tr><tr><td>DataList_Iteration_ForLoop</td><td>1000</td><td>360.9 ns</td><td>3.98 ns</td><td>3.72 ns</td><td>361.7 ns</td><td>1.09</td><td>0.03</td><td>-</td><td>NA</td>
+</tr><tr><td>DataList_Iteration_ForEach</td><td>1000</td><td>380.5 ns</td><td>3.88 ns</td><td>3.24 ns</td><td>380.3 ns</td><td>1.16</td><td>0.03</td><td>-</td><td>NA</td>
+</tr><tr><td>DataIEnumerable_Iteration_ForEach</td><td>1000</td><td>5,555.3 ns</td><td>55.00 ns</td><td>51.45 ns</td><td>5,553.6 ns</td><td>16.81</td><td>0.35</td><td>40 B</td><td>NA</td>
+</tr><tr><td>DataIEnumerable_Iteration_ForLoop_WithCount</td><td>1000</td><td>10,385.1 ns</td><td>94.16 ns</td><td>83.47 ns</td><td>10,371.1 ns</td><td>31.45</td><td>0.73</td><td>-</td><td>NA</td>
+</tr><tr><td>DataTable_Iteration</td><td>10000</td><td>3,046.6 ns</td><td>29.91 ns</td><td>27.98 ns</td><td>3,039.0 ns</td><td>1.00</td><td>0.00</td><td>-</td><td>NA</td>
+</tr><tr><td>DataList_Iteration_ForLoop</td><td>10000</td><td>3,576.9 ns</td><td>68.96 ns</td><td>140.86 ns</td><td>3,507.1 ns</td><td>1.19</td><td>0.06</td><td>-</td><td>NA</td>
+</tr><tr><td>DataList_Iteration_ForEach</td><td>10000</td><td>3,673.8 ns</td><td>25.32 ns</td><td>23.69 ns</td><td>3,675.2 ns</td><td>1.21</td><td>0.01</td><td>-</td><td>NA</td>
+</tr><tr><td>DataIEnumerable_Iteration_ForEach</td><td>10000</td><td>56,675.0 ns</td><td>986.95 ns</td><td>923.19 ns</td><td>56,452.2 ns</td><td>18.60</td><td>0.37</td><td>40 B</td><td>NA</td>
+</tr><tr><td>DataIEnumerable_Iteration_ForLoop_WithCount</td><td>10000</td><td>115,641.5 ns</td><td>2,048.79 ns</td><td>5,177.56 ns</td><td>116,361.3 ns</td><td>35.80</td><td>2.01</td><td>-</td><td>NA</td>
+</tr></tbody></table>
+</body>
+</html>
